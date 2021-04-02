@@ -1,0 +1,11 @@
+.tile {
+    height: 50px;
+    width: 50px;
+    margin: 5px;
+    display: inLine-block;
+    background-color: grey;
+}
+
+.tile-row {
+
+}
