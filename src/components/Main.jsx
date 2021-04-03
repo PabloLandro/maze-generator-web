@@ -1,5 +1,7 @@
 import React from 'react';
 import './styles.css';
+import * as MazeFunctions from './MazeFunctions';
+import * as Algorithms from './Algorithms';
 
 export default class Maze extends React.Component {
     state = {
@@ -14,17 +16,24 @@ export default class Maze extends React.Component {
             tiles.push({
                 id:{i}
             });
-            console.log(tiles[i].id);
         }
         this.setState({ tiles: tiles });
     }
 
     componentDidMount = () => {
         this.createTiles();
+        this.createMaze();
     }
 
     getTileId = (row, col) => {
         return row*this.state.width + this.state.height;
+    }
+
+    createMaze = () => {
+        let maze = MazeFunctions.createMaze(this.props.width, this.props.height);
+        let animations;
+        Algorithms.recursiveAlgorithm(maze, animations);
+        console.log(maze);
     }
 
     render () {

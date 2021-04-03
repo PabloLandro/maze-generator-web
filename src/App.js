@@ -1,10 +1,10 @@
 import './App.css';
-import Maze from './components/Maze.jsx';
+import Maze from './components/Main.jsx';
 
 function App() {
   return (
     <div className="App">
-      <Maze width={10} height={10}/>
+      <Maze width={3} height={3}/>
     </div>
   );
 }
