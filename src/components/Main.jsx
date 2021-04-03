@@ -16,13 +16,13 @@ export default class Maze extends React.Component {
             tiles.push({
                 id:{i}
             });
-            console.log(tiles[i].id);
         }
         this.setState({ tiles: tiles });
     }
 
     componentDidMount = () => {
         this.createTiles();
+        this.createMaze();
     }
 
     getTileId = (row, col) => {
@@ -33,12 +33,7 @@ export default class Maze extends React.Component {
         let maze = MazeFunctions.createMaze(this.props.width, this.props.height);
         let animations;
         Algorithms.recursiveAlgorithm(maze, animations);
-        let output = "";
-        for (let i = 0; i < maze.rows; i++) {
-            for (let j = 0; j < maze.cols; j++) {
-                
-            }
-        }
+        console.log(maze);
     }
 
     render () {

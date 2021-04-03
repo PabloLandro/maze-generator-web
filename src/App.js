@@ -4,7 +4,7 @@ import Maze from './components/Main.jsx';
 function App() {
   return (
     <div className="App">
-      <Maze width={30} height={30}/>
+      <Maze width={3} height={3}/>
     </div>
   );
 }
