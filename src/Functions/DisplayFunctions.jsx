@@ -110,10 +110,9 @@ function botDisplayRow (
 
     for(let col = 0; col < (maze.cols)*2 + 1; col++) {
         let color = "black";
-        console.log("CHECKING", col, ",", row);
         if (col % 2 === 0) {
             color = "black";
-        } else if (MazeFunctions.getTile(maze, (col-1)/2, row).walls[3] === false) {
+        } else if (MazeFunctions.getTile(maze, (col-1)/2, row).walls[2] === false) {
             color = "white";
         } else if (row < maze.rows-1) {
             if (MazeFunctions.getTile(maze, (col-1)/2, row+1).walls[0] === false) {
