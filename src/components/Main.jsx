@@ -1,72 +1,44 @@
 import React from 'react';
 import './styles.css';
-import * as MazeFunctions from './MazeFunctions';
+import * as MazeFunctions from '../Functions/MazeFunctions';
+import * as DisplayFunctions from '../Functions/DisplayFunctions';
 import * as Algorithms from './Algorithms';
 
 export default class Maze extends React.Component {
     state = {
-        tiles: [],
+        maze: null,
         width: this.props.width,
         height: this.props.height
     }
 
-    createTiles = () => {
-        let tiles = [];
-        for(let i = 0; i < 5; i++) {
-            tiles.push({
-                id:{i}
-            });
-        }
-        this.setState({ tiles: tiles });
-    }
-
-    componentDidMount = () => {
-        this.createTiles();
-        this.createMaze();
-    }
-
-    getTileId = (row, col) => {
-        return row*this.state.width + this.state.height;
+    componentWillMount = () => {
     }
 
     createMaze = () => {
         let maze = MazeFunctions.createMaze(this.props.width, this.props.height);
+        this.setState({ maze: maze });
+    }
+
+    runRecusriveAlgorithm = () => {
+        this.createMaze();
         let animations;
-        Algorithms.recursiveAlgorithm(maze, animations);
-        console.log(maze);
+        let auxMaze = this.state.maze;
+        Algorithms.recursiveAlgorithm(auxMaze, animations);
+        console.log("THIS");
+        this.setState({ maze: auxMaze });
+        console.log(this.state.maze);
     }
 
     render () {
-
-        let rows = [];
-
-        for (let i = 0; i < this.state.height; i++) {
-            rows.push([]);
-            for (let j = 0; j < this.state.width; j++) {
-                rows[i].push(
-                    <div 
-                        className="tile"
-                        id={this.getTileId(i, j)}
-                    />    
-                )
-            }
-        }
-
         return (
             <div>
-                { rows.map(row => (
-                    <div
-                        className="tile-row"
-                    >
-                        {
-                            row.map(tile => (
-                                <div 
-                                    className="tile"
-                                />
-                            ))
-                        }
-                    </div>
-                ))}
+                { this.state.maze === null
+                    ? <button onClick={this.createMaze}>CreateMaze</button>
+                    : DisplayFunctions.getDisplayMaze(this.state.maze)
+                }
+                <div>
+                    <button onClick={this.runRecusriveAlgorithm}>RecursiveAlgorithm</button>
+                </div>
             </div>
         );
     }

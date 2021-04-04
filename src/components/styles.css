@@ -1,12 +1,12 @@
-.tile {
+.display-tile {
     height: 15px;
     width: 15px;
     margin: 0px;
     display: inLine-block;
-    background-color: grey;
+    background-color: black;
 }
 
-.tile-row {
+.display-row {
     padding: 0px;
     margin: -6px;
 }
