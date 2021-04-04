@@ -1,11 +1,11 @@
-import * as MazeFunctions from './MazeFunctions';
+import * as MazeFunctions from '../Functions/MazeFunctions';
 
-var maxIter = 0;
 
 export function recursiveAlgorithm (
     maze,
     animations,
 ) {
+    animations = [];
     const tile = maze.tiles[0];
     tile.walls[3] = false;
     tile.walls[1] = false;
@@ -20,11 +20,10 @@ function recursiveAlgorithmIteration (
 ) {
     console.log("visiting:", tile.row, ",", tile.col);
     tile.visited = true;
-    while(MazeFunctions.getUnvisitedNeighbours(maze, tile).length > 0 && maxIter < 20) {
+    while(MazeFunctions.getUnvisitedNeighbours(maze, tile).length > 0) {
         let randomTile = MazeFunctions.getRandomUnvisitedNeighbour(maze, tile);
         MazeFunctions.breakWalls(tile, randomTile);
         console.log("breaking:", tile, ",", randomTile);
-        maxIter++;
         recursiveAlgorithmIteration(maze, animations, randomTile);
     }
 }
