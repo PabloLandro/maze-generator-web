@@ -18,7 +18,7 @@ export default class Maze extends React.Component {
     }
 
     createMaze = () => {
-        let maze = MazeFunctions.createMaze(this.props.width, this.props.height);
+        let maze = MazeFunctions.createMaze(this.state.width, this.state.height);
         this.setState({ maze: maze });
         return maze;
     }
@@ -30,6 +30,12 @@ export default class Maze extends React.Component {
         this.setState({ maze: auxMaze });
     }
 
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
     render () {
         return (
             <div>
@@ -37,6 +43,18 @@ export default class Maze extends React.Component {
                     ? null
                     : DisplayFunctions.getDisplayMaze(this.state.maze)
                 }
+                <div>
+                    <input
+                        name="width"
+                        value={this.state.width}
+                        onChange={this.handleChange}
+                    />
+                    <input
+                        name="height"
+                        value={this.state.height}
+                        onChange={this.handleChange}
+                    />
+                </div>
                 <div>
                     <button onClick={this.runRecusriveAlgorithm}>RecursiveAlgorithm</button>
                </div>
