@@ -8,7 +8,6 @@ export function recursiveAlgorithm (
     animations = [];
     const tile = maze.tiles[0];
     tile.walls[3] = false;
-    tile.walls[1] = false;
     recursiveAlgorithmIteration(maze, animations, tile);
 }
 
