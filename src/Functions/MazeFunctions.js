@@ -39,7 +39,6 @@ export function createMaze (
             });
         }
     }
-    console.log(maze);
     return maze;
 }
 

@@ -11,6 +11,12 @@ export default class Maze extends React.Component {
         height: this.props.height
     }
 
+    componentDidMount = () => {
+        if (this.state.maze === null) {
+            this.createMaze();
+        }
+    }
+
     createMaze = () => {
         let maze = MazeFunctions.createMaze(this.props.width, this.props.height);
         this.setState({ maze: maze });
@@ -22,14 +28,13 @@ export default class Maze extends React.Component {
         let animations;
         Algorithms.recursiveAlgorithm(auxMaze, animations);
         this.setState({ maze: auxMaze });
-        console.log("CALL");
     }
 
     render () {
         return (
             <div>
                 { this.state.maze === null
-                    ? <button onClick={this.createMaze}>CreateMaze</button>
+                    ? null
                     : DisplayFunctions.getDisplayMaze(this.state.maze)
                 }
                 <div>

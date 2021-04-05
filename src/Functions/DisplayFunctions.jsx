@@ -10,8 +10,6 @@ export function getDisplayMaze (
         displayRows.push(midDisplayRow(maze, row));
     }
     displayRows.push(botDisplayRow(maze, maze.rows-1));
-    console.log("DISPLAYROWS");
-    console.log(displayRows);
     return (
         <div>
             {
@@ -83,7 +81,9 @@ function midDisplayRow (
     for(let col = 0; col < maze.cols*2 + 1; col++) {
         let color = "black";
         if (col % 2 === 1) {
-            color = "white";
+            if (MazeFunctions.getTile(maze, (col-1)/2, row).visited === true) {
+                color = "white";
+            }
         } else {
             if (col < maze.cols*2) {
                 if (MazeFunctions.getTile(maze, col/2, row).walls[3] === false) {

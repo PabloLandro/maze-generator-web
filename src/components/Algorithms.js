@@ -58,12 +58,10 @@ function recursiveAlgorithmIteration (
     animations,
     tile
 ) {
-    console.log("visiting:", tile.row, ",", tile.col);
     tile.visited = true;
     while(MazeFunctions.getUnvisitedNeighbours(maze, tile).length > 0) {
         let randomTile = MazeFunctions.getRandomUnvisitedNeighbour(maze, tile);
         MazeFunctions.breakWalls(tile, randomTile);
-        console.log("breaking:", tile, ",", randomTile);
         recursiveAlgorithmIteration(maze, animations, randomTile);
     }
 }
