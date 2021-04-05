@@ -16,11 +16,12 @@ export function getDisplayMaze (
         <div>
             {
                 displayRows.map(displayRow => (
-                    <div className="display-row">
+                    <div className="display-row" key={"" + displayRow.row}>
                         {
                             displayRow.displayTiles.map(displayTile => (
                                 <div
                                     className="display-tile"
+                                    key={"" + displayRow.row + ", " + displayTile.col}
                                     style={{
                                         backgroundColor: displayTile.color
                                     }}
@@ -39,7 +40,8 @@ function topDisplayRow (
     row
 ) {
     let displayRow = {
-        displayTiles: []
+        displayTiles: [],
+        row: row*3
     };
 
     /*
@@ -61,7 +63,8 @@ function topDisplayRow (
             }
         }
         displayRow.displayTiles.push({
-            color: color
+            color: color,
+            col: col
         });
     }
 
@@ -73,7 +76,8 @@ function midDisplayRow (
     row
 ) {
     let displayRow = {
-        displayTiles: []
+        displayTiles: [],
+        row: row*3 + 1
     };
 
     for(let col = 0; col < maze.cols*2 + 1; col++) {
@@ -93,7 +97,8 @@ function midDisplayRow (
             }
         }
         displayRow.displayTiles.push({
-            color: color
+            color: color,
+            col: col
         });
     }
 
@@ -105,7 +110,8 @@ function botDisplayRow (
     row
 ) {
     let displayRow = {
-        displayTiles: []
+        displayTiles: [],
+        row: row*3 + 2
     };
 
     for(let col = 0; col < (maze.cols)*2 + 1; col++) {
@@ -120,7 +126,8 @@ function botDisplayRow (
             }
         }
         displayRow.displayTiles.push({
-            color: color
+            color: color,
+            col: col
         });
     }
 

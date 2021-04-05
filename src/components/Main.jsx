@@ -14,12 +14,12 @@ export default class Maze extends React.Component {
     createMaze = () => {
         let maze = MazeFunctions.createMaze(this.props.width, this.props.height);
         this.setState({ maze: maze });
+        return maze;
     }
 
     runRecusriveAlgorithm = () => {
-        this.createMaze();
+        let auxMaze = this.createMaze();
         let animations;
-        let auxMaze = this.state.maze;
         Algorithms.recursiveAlgorithm(auxMaze, animations);
         this.setState({ maze: auxMaze });
         console.log("CALL");
@@ -34,7 +34,7 @@ export default class Maze extends React.Component {
                 }
                 <div>
                     <button onClick={this.runRecusriveAlgorithm}>RecursiveAlgorithm</button>
-                </div>
+               </div>
             </div>
         );
     }
