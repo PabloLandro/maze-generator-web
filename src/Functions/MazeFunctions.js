@@ -122,3 +122,45 @@ export function breakWalls (
         tile2.walls[2] = false;
     }
 }
+
+export function setInitialTiles (
+    maze
+) {
+    const side = randomIntFromInterval(0, 3);
+    maze.start = getRandomTileFromBorder(maze, side);
+    maze.end = getRandomTileFromBorder(maze, (side+2)%4);
+    getTile(maze, maze.start.col, maze.start.row).walls[side] = false;
+    getTile(maze, maze.end.col, maze.end.row).walls[(side+2)%4] = false;
+}
+
+export function getRandomTileFromBorder (
+    maze,
+    border
+) {
+    let tile = {
+        row: 0,
+        col: 0
+    }
+    switch (border) {
+        case 0:
+            tile.row = 0;
+            tile.col = randomIntFromInterval(0, maze.cols-1);
+            return tile;
+        case 1:
+            tile.row = randomIntFromInterval(0, maze.rows-1);
+            tile.col = maze.rows-1;
+            return tile;
+        case 2:
+            tile.row = maze.rows-1;
+            tile.col = randomIntFromInterval(0, maze.cols-1);
+            return tile;
+        case 3:
+            tile.row = randomIntFromInterval(0, maze.rows-1);
+            tile.col = 0;
+            return tile;
+        default:
+            tile.row = 0;
+            tile.col = 0;
+            return tile;
+    }
+}

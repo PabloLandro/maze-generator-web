@@ -25,8 +25,9 @@ export default class Maze extends React.Component {
 
     runRecusriveAlgorithm = () => {
         let auxMaze = this.createMaze();
-        let animations;
+        let animations = [];
         Algorithms.recursiveAlgorithm(auxMaze, animations);
+        console.log(animations);
         this.setState({ maze: auxMaze });
     }
 
