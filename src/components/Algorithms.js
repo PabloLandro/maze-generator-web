@@ -2,12 +2,15 @@ import * as MazeFunctions from '../Functions/MazeFunctions';
 
 
 export function recursiveAlgorithm (
-    maze,
-    animations,
+    width,
+    height
 ) {
+    let animations = [];
+    let maze = MazeFunctions.createMaze(width, height);
     MazeFunctions.setInitialTiles(maze);
     const initialTile = MazeFunctions.getTile(maze, maze.start.col, maze.start.row);
     recursiveAlgorithmIteration(maze, animations, initialTile);
+    return animations;
 }
 
 function recursiveAlgorithmIteration (

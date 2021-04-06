@@ -4,6 +4,9 @@ import * as MazeFunctions from '../Functions/MazeFunctions';
 import * as DisplayFunctions from '../Functions/DisplayFunctions';
 import * as Algorithms from './Algorithms';
 
+
+const ANIMATION_SPEED = 50;
+
 export default class Maze extends React.Component {
     state = {
         maze: null,
@@ -24,11 +27,15 @@ export default class Maze extends React.Component {
     }
 
     runRecusriveAlgorithm = () => {
+        let animations = Algorithms.recursiveAlgorithm(this.state.width, this.state.height);
         let auxMaze = this.createMaze();
-        let animations = [];
-        Algorithms.recursiveAlgorithm(auxMaze, animations);
         console.log(animations);
-        this.setState({ maze: auxMaze });
+        for (let i = 0; i < animations.length; i++) {
+            setTimeout(() => {
+                MazeFunctions.updateMaze(auxMaze, animations[i]);
+                this.setState({ maze: auxMaze });
+            }, i*ANIMATION_SPEED);
+        }        
     }
 
     handleChange = (event) => {

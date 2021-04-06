@@ -164,3 +164,11 @@ export function getRandomTileFromBorder (
             return tile;
     }
 }
+
+export function updateMaze (
+    maze,
+    tile
+) {
+    maze.tiles[tile.col+tile.row*maze.cols] = tile;
+    return maze;
+}
