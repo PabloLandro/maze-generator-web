@@ -46,7 +46,7 @@ export default class Maze extends React.Component {
                 MazeFunctions.updateMaze(auxMaze, animations[i]);
                 this.setState({ maze: auxMaze });
             }, i*this.state.animation_speed);
-        }     
+        }
     }
 
     handleChange = (event) => {

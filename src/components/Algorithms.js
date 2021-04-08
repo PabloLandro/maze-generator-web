@@ -39,48 +39,60 @@ export function kruskalAlgorithm (
 ) {
     let animations = [];
     let maze = MazeFunctions.createMaze(width, height);
-    let unvisitedTiles = [...maze.tiles];
     MazeFunctions.setInitialTiles(maze);
-    console.log(unvisitedTiles.length);
-    while(unvisitedTiles.length > 0) {
-        let randomTile = unvisitedTiles[MazeFunctions.randomIntFromInterval(0, unvisitedTiles.length-1)];
-        kruskalVisit(maze, randomTile, unvisitedTiles);
-        let unvisitedNeighbour = randomUnconnectedNeighbour(maze, randomTile);
-        MazeFunctions.breakWalls(randomTile, unvisitedNeighbour);
-        joinTileSets(randomTile, unvisitedNeighbour);
-        animations.push(randomTile);
-        animations.push(unvisitedNeighbour);
+    let wallArray = getWallArray(maze);
+    while(wallArray.length > 0) {
+        let idx = MazeFunctions.randomIntFromInterval(0, wallArray.length-1);
+        let wall = wallArray[idx];
+        wallArray.splice(idx, 1);
+        let tile1 = MazeFunctions.getTile(maze, wall.col1, wall.row1);
+        let tile2 = MazeFunctions.getTile(maze, wall.col2, wall.row2);
+        if (!sameSet(tile1, tile2)) {
+            joinTileSets(tile1, tile2);
+            MazeFunctions.breakWalls(tile1, tile2);
+            animations.push(tile1);
+            animations.push(tile2);
+        }
     }
     return animations;
 }
 
-function randomUnconnectedNeighbour (
-    maze,
-    tile
+function getWallArray (
+    maze
 ) {
-    let unconnectedNeighbours = [];
-    let adyacentTiles = MazeFunctions.getAdyacentTiles(maze, tile);
-    unconnectedNeighbours = adyacentTiles.filter(adyacentTile => {
-        if (tile.set === undefined) {
-            return true;
-        } else if (adyacentTile.set === undefined) {
-            return true;
-        } else {
-            return tile.set.includes(adyacentTile);
+    let wallArray = [];
+    for (let i = 0; i < maze.rows; i++) {
+        for (let j = 0; j < maze.cols; j++) {
+            if (j < maze.cols-1) {
+                wallArray.push({
+                    col1: j,
+                    row1: i,
+                    col2: j+1,
+                    row2: i
+                });
+            }
+            if (i < maze.rows-1) {
+                wallArray.push({
+                    col1: j,
+                    row1: i,
+                    col2: j,
+                    row2: i+1
+                });
+            }
         }
-        
-    });
-    return unconnectedNeighbours[MazeFunctions.randomIntFromInterval(0, unconnectedNeighbours.length-1)];
+    }
+    return wallArray;
 }
 
-function kruskalVisit (
-    maze,
-    tile,
-    unvisitedTiles
+function sameSet (
+    tile1,
+    tile2
 ) {
-    tile.visited = true;
-    //We also eliminate the tile from the unvisited tiles array
-    unvisitedTiles.splice(unvisitedTiles.indexOf(tile), 1);
+    if (tile1.set === undefined || tile2.set === undefined) {
+        return false;
+    } else {
+        return tile1.set.includes(tile2) || tile2.set.includes(tile1);
+    }
 }
 
 //Adds tile2 to tile1's set and viceversa
@@ -90,6 +102,8 @@ function joinTileSets (
 ) {
     addToSet(tile1, tile2);
     addToSet(tile2, tile1);
+    tile1.visited = true;
+    tile2.visited = true;
 }
 
 function addToSet (
@@ -99,6 +113,8 @@ function addToSet (
     if (tile1.set === undefined) {
         tile1.set = [tile1, tile2];
     } else {
-        tile1.set.push(tile2);
+        tile1.set.forEach(tile => {
+            tile.set.push(tile2);
+        })
     }
 }
