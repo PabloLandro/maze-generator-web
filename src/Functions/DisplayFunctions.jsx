@@ -82,7 +82,7 @@ function midDisplayRow (
         let color = "black";
         if (col % 2 === 1) {
             if (MazeFunctions.getTile(maze, (col-1)/2, row).visited === true) {
-                color = "white";
+                color = MazeFunctions.getTile(maze, (col-1)/2, row).current ? "blue": "white";
             }
         } else {
             if (col < maze.cols*2) {
