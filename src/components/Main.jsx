@@ -10,7 +10,7 @@ export default class Maze extends React.Component {
         maze: null,
         width: this.props.width,
         height: this.props.height,
-        animation_speed: 0
+        animation_speed: 100
     }
 
     componentDidMount = () => {
