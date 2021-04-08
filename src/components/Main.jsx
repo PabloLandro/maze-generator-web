@@ -37,6 +37,18 @@ export default class Maze extends React.Component {
         }        
     }
 
+    runKruskalAlgorithm = () => {
+        let animations = Algorithms.kruskalAlgorithm(this.state.width, this.state.height);
+        let auxMaze = this.createMaze();
+        console.log(animations);
+        for (let i = 0; i < animations.length; i++) {
+            setTimeout(() => {
+                MazeFunctions.updateMaze(auxMaze, animations[i]);
+                this.setState({ maze: auxMaze });
+            }, i*this.state.animation_speed);
+        }     
+    }
+
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -74,6 +86,7 @@ export default class Maze extends React.Component {
                 </div>
                 <div>
                     <button onClick={this.runRecusriveAlgorithm}>RecursiveAlgorithm</button>
+                    <button onClick={this.runKruskalAlgorithm}>KruskalAlgorithm</button>
                </div>
             </div>
         );

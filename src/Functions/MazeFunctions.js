@@ -20,6 +20,14 @@ export function getTile (
     return maze.tiles[maze.cols*row + col];
 }
 
+export function getTileIndex (
+    maze,
+    col,
+    row
+) {
+    return maze.cols*row + col;
+}
+
 export function createMaze (
     cols,
     rows
@@ -27,7 +35,7 @@ export function createMaze (
     let maze = {
         cols: cols,
         rows: rows,
-        tiles: []
+        tiles: [],
     }
     for(let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
@@ -59,7 +67,8 @@ export function getRandomUnvisitedNeighbour (
     return unvisitedNeighbours[randomIntFromInterval(0, bound)];
 }
 
-function getAdyacentTiles (
+//Returns an array of the surrounding tiles
+export function getAdyacentTiles (
     maze,
     tile
 ) {
@@ -100,10 +109,12 @@ function getAdyacentTile (
     }
 }
 
- export function randomIntFromInterval(min, max){
+export function randomIntFromInterval(min, max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+
+// Breaks the walls between two adyacent tiles
 export function breakWalls (
     tile1,
     tile2
@@ -123,6 +134,7 @@ export function breakWalls (
     }
 }
 
+// Chooses random tiles from opposite borders
 export function setInitialTiles (
     maze
 ) {
@@ -133,7 +145,7 @@ export function setInitialTiles (
     getTile(maze, maze.end.col, maze.end.row).walls[(side+2)%4] = false;
 }
 
-export function getRandomTileFromBorder (
+function getRandomTileFromBorder (
     maze,
     border
 ) {
