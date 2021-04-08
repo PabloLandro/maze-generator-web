@@ -40,7 +40,6 @@ export default class Maze extends React.Component {
     runKruskalAlgorithm = () => {
         let animations = Algorithms.kruskalAlgorithm(this.state.width, this.state.height);
         let auxMaze = this.createMaze();
-        console.log(animations);
         for (let i = 0; i < animations.length; i++) {
             setTimeout(() => {
                 MazeFunctions.updateMaze(auxMaze, animations[i]);

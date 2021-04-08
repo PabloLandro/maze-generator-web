@@ -79,6 +79,8 @@ function getWallArray (
                     row2: i+1
                 });
             }
+            let tile = MazeFunctions.getTile(maze, j, i);
+            tile.set = [tile];
         }
     }
     return wallArray;
@@ -100,21 +102,20 @@ function joinTileSets (
     tile1,
     tile2
 ) {
-    addToSet(tile1, tile2);
-    addToSet(tile2, tile1);
+    tile1.set.forEach(tile => {
+        tile2.set.forEach(aux => {
+            if (!tile.set.includes(aux)) {
+                tile.set.push(aux);
+            }
+        });
+    });
+    tile2.set.forEach(tile => {
+        tile1.set.forEach(aux => {
+            if (!tile.set.includes(aux)) {
+                tile.set.push(aux);
+            }
+        });
+    })
     tile1.visited = true;
     tile2.visited = true;
-}
-
-function addToSet (
-    tile1,
-    tile2
-) {
-    if (tile1.set === undefined) {
-        tile1.set = [tile1, tile2];
-    } else {
-        tile1.set.forEach(tile => {
-            tile.set.push(tile2);
-        })
-    }
 }
