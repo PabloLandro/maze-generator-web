@@ -181,6 +181,10 @@ export function updateMaze (
     maze,
     tile
 ) {
+    maze.tiles.forEach(tile => {
+        tile.current = false;
+    });
+    tile.current = true;
     maze.tiles[tile.col+tile.row*maze.cols] = tile;
     return maze;
 }
