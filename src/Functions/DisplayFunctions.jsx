@@ -54,10 +54,10 @@ function topDisplayRow (
         if (col % 2 === 0) {
             color = "black";
         } else if (MazeFunctions.getTile(maze, (col-1)/2, row).walls[0] === false) {
-            color = "white";
+            color = colorSelect(MazeFunctions.getTile(maze, (col-1)/2, row));
         } else if (row > 0) {
             if (MazeFunctions.getTile(maze, (col-1)/2, row-1).walls[2] === false) {
-                color = "white";
+                color = colorSelect(MazeFunctions.getTile(maze, (col-1)/2, row-1));
             }
         }
         displayRow.displayTiles.push({
@@ -82,17 +82,17 @@ function midDisplayRow (
         let color = "black";
         if (col % 2 === 1) {
             if (MazeFunctions.getTile(maze, (col-1)/2, row).visited === true) {
-                color = MazeFunctions.getTile(maze, (col-1)/2, row).current ? "blue": "white";
+                color = colorSelect(MazeFunctions.getTile(maze, (col-1)/2, row));
             }
         } else {
             if (col < maze.cols*2) {
                 if (MazeFunctions.getTile(maze, col/2, row).walls[3] === false) {
-                    color = "white";
+                    color = colorSelect(MazeFunctions.getTile(maze, col/2, row));
                 }
             }
             if(col > 0) {
                 if (MazeFunctions.getTile(maze, (col-2)/2, row).walls[1] === false) {
-                    color = "white";
+                    color = colorSelect(MazeFunctions.getTile(maze, (col-2)/2, row));
                 }
             }
         }
@@ -119,10 +119,10 @@ function botDisplayRow (
         if (col % 2 === 0) {
             color = "black";
         } else if (MazeFunctions.getTile(maze, (col-1)/2, row).walls[2] === false) {
-            color = "white";
+            color = colorSelect(MazeFunctions.getTile(maze, (col-1)/2, row));
         } else if (row < maze.rows-1) {
             if (MazeFunctions.getTile(maze, (col-1)/2, row+1).walls[0] === false) {
-                color = "white";
+                color = colorSelect(MazeFunctions.getTile(maze, (col-1)/2, row+1));
             }
         }
         displayRow.displayTiles.push({
@@ -132,4 +132,13 @@ function botDisplayRow (
     }
 
     return displayRow;
+}
+
+function colorSelect (
+    tile
+) {
+    if (tile.visited) {
+        return tile.current? "blue": "white";
+    }
+    return "white";
 }
