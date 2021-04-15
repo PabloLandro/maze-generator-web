@@ -138,7 +138,7 @@ function colorSelect (
     tile
 ) {
     if (tile.visited) {
-        return tile.current? "blue": "white";
+        return tile.current? "red": "white";
     }
     return "white";
 }
